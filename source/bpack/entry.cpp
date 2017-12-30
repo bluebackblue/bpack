@@ -99,6 +99,8 @@ int main(int a_argc,char** a_argv)
 
 	NApp::App_Main();
 
+	GetEntryParamReference().Reset();
+
 	#if defined(PLATFORM_GNUCWIN)
 	return 0;
 	#endif
