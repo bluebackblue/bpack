@@ -13,7 +13,7 @@ https://github.com/bluebackblue/bpack/blob/master/LICENSE.txt
 * _ source
 * ___ premake.bat
 * ___ bpack
-* brownie 「チェックアウト : https://github.com/bluebackblue/brownie 」 このリポジトリとは別のリポジトリです。
+* brownie 「チェックアウト : https://github.com/bluebackblue/brownie 」 
 
 ## include path
 インクルードパス
@@ -23,9 +23,7 @@ https://github.com/bluebackblue/bpack/blob/master/LICENSE.txt
 リンクパス
 
 ## brownie
-このリポジトリとは別のリポジトリです。
-
-上のフォルダ構造を参考にチェックアウトを行ってください。
+* このリポジトリとは別のリポジトリです。
 
 ## bpack project
 起動までの手順
