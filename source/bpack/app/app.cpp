@@ -22,6 +22,88 @@ namespace NApp
 	*/
 	class App
 	{
+	private:
+		/** filename_path
+		*/
+		STLWString filename_path;
+
+		/** filename_output
+		*/
+		STLWString filename_output;
+		
+	public:
+	
+		/** パラメータ読み込み。
+		*/
+		bool LoadParam()
+		{
+			sharedptr<JsonItem> t_json = GetEntryParamReference().argument;
+			
+			STLWString t_path;
+			STLWString t_output;
+
+			if(t_json){
+				if(t_json->IsAssociativeArray() == true){
+					if(t_json->IsExistItem("-path",JsonItem::ValueType::StringData) == true){
+						t_path = CharToWchar(*t_json->GetItem("-path")->GetStringData());
+						if(t_path.length() <= 0){
+							std::wcout << L"error : -path" << std::endl;
+							return false;
+						}
+					}else{
+						std::wcout << L"error : -path" << std::endl;
+						return false;
+					}
+					if(t_json->IsExistItem("-output",JsonItem::ValueType::StringData) == true){
+						t_output = CharToWchar(*t_json->GetItem("-output")->GetStringData());
+						if(t_output.length() <= 0){
+							std::wcout << L"error : -output" << std::endl;
+							return false;
+						}
+					}else{
+						std::wcout << L"error : -output" << std::endl;
+						return false;
+					}
+				}else{
+					std::wcout << L"error : parameter" << std::endl;
+					return false;
+				}
+			}else{
+				std::wcout << L"error : parameter" << std::endl;
+				return false;
+			}
+
+			this->filename_path = t_path;
+			this->filename_output = t_output;
+
+			std::wcout << L"-path : " << this->filename_path << std::endl;
+			std::wcout << L"-output : " << this->filename_output << std::endl;
+			return true;
+		}
+
+		/** 作成。
+		*/
+		bool Make()
+		{
+			//作成開始。
+			sharedptr<ThreadTemplate<NBsys::NFile::File_Pack_MakeThread>> t_pack_makethread = NBsys::NFile::Pack_Create(this->filename_path,this->filename_output,nullptr);
+			
+			std::cout << "pack : start" << std::endl;
+
+			//作成中。
+			while(t_pack_makethread->IsEnd() == false){
+				ThreadSleep(1000);
+				std::cout << "pack : now" << std::endl;
+			}
+			
+			//作成完了。
+			t_pack_makethread->EndWait();
+			t_pack_makethread.reset();
+
+			std::cout << "pack : end" << std::endl;
+
+			return true;
+		}
 	};
 
 
@@ -39,41 +121,13 @@ namespace NApp
 		NBsys::NFile::StartSystem(1);
 		NBsys::NFile::SetRoot(0,L"../");
 
-		{
-			//作成開始。
-			sharedptr<ThreadTemplate<NBsys::NFile::File_Pack_MakeThread>> t_pack_makethread = NBsys::NFile::Pack_Create(L"../to_pack_data/",L"../data.pack",nullptr);
-			
-			std::cout << "pack : start" << std::endl;
-
-			//作成中。
-			while(t_pack_makethread->IsEnd() == false){
-				ThreadSleep(1000);
-				std::cout << "pack : now" << std::endl;
+		App t_app;
+		if(t_app.LoadParam()){
+			if(t_app.Make()){
 			}
-			
-			//作成完了。
-			t_pack_makethread->EndWait();
-			t_pack_makethread.reset();
-
-			std::cout << "pack : end" << std::endl;
 		}
 
-		{
-			NBsys::NFile::Pack_LoadRequest(0,L"data.pack",L"test");
-
-			//TODO:エラー処理。
-			while(NBsys::NFile::Pack_IsExist(0,L"data.pack") == false){
-				ThreadSleep(1000);
-				//std::cout << "error : isexist" << std::endl;
-			}
-
-			sharedptr<NBsys::NFile::File_Object> t_object(new NBsys::NFile::File_Object(0,L"test/test1/data.txt",-1,nullptr,0));
-
-			while(t_object->IsBusy()){
-				ThreadSleep(1000);
-			}
-
-		}
+		std::cout << "end" << std::endl;
 
 		//終了処理。
 		NBsys::NFile::EndSystemRequest();
