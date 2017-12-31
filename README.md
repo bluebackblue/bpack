@@ -13,7 +13,7 @@ https://github.com/bluebackblue/bpack/blob/master/LICENSE.txt
 * _ source
 * ___ premake.bat
 * ___ bpack
-* brownie 「チェックアウト : https://github.com/bluebackblue/brownie 」 
+* brownie 「チェックアウト : https://github.com/bluebackblue/brownie/tree/1.0.1 」 
 
 ## include path
 インクルードパス
