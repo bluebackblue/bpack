@@ -1,7 +1,7 @@
 ﻿
 
 /**
- * Copyright (c) 2017 blueback
+ * Copyright (c) 2017-2018 blueback
  * Released under the MIT License
  * https://github.com/bluebackblue/bpack/blob/master/LICENSE.txt
  * http://bbbproject.sakura.ne.jp/wordpress/mitlicense
@@ -11,7 +11,15 @@
 
 /** include
 */
+#pragma warning(push)
+#pragma warning(disable:4464)
 #include "../entry.h"
+#pragma warning(pop)
+
+
+/** warning
+*/
+#pragma warning(disable:4710)
 
 
 /** NApp
@@ -112,7 +120,7 @@ namespace NApp
 	void App_Main()
 	{
 		//バージョン。
-		std::cout << "Bpack 1.0.0" " " __DATE__  << std::endl;
+		std::cout << "Bpack 1.0.1" " " __DATE__  << std::endl;
 
 		//ライブラリバージョン。
 		std::cout << BROWNIE_VERSION_STRING << std::endl;
@@ -121,9 +129,11 @@ namespace NApp
 		NBsys::NFile::StartSystem(1);
 		NBsys::NFile::SetRoot(0,L"../");
 
-		App t_app;
-		if(t_app.LoadParam()){
-			if(t_app.Make()){
+		{
+			App t_app;
+			if(t_app.LoadParam()){
+				if(t_app.Make()){
+				}
 			}
 		}
 
@@ -133,5 +143,7 @@ namespace NApp
 		NBsys::NFile::EndSystemRequest();
 		NBsys::NFile::EndWaitSystem();
 	}
+
+
 }
 
