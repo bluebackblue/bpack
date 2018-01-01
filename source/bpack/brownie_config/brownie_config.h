@@ -72,6 +72,24 @@
 
 /*
 	-------------------
+	スレッドテンプレート
+	-------------------
+
+	-------------------
+	BLIB_THREADTEMPLATE_DEBUG_ENABLE
+
+		0 : オフ
+		1 : オン
+
+		デバッグ機能を制御します。
+	-------------------
+*/
+#if !defined(BLIB_THREADTEMPLATE_DEBUG_ENABLE)
+	#define BLIB_THREADTEMPLATE_DEBUG_ENABLE				(0)
+#endif
+
+/*
+	-------------------
 	デバッグアサートコールバック
 
 		コールバック関数の呼び出しを制御します。
@@ -568,12 +586,27 @@
 	-------------------
 
 	-------------------
+	BSYS_FILE_DEBUG_ENABLE
+
+		0 : オフ
+		1 : オン
+
+		デバッグ機能を制御します。
+	-------------------
+
+	-------------------
 	BSYS_FILE_PACK_ENABLE
 
 		0 : オフ
 		1 : オン
 
 		パックファイルの作成、解析を制御します。
+	-------------------
+
+	-------------------
+	BSYS_FILE_PACK_VERSION
+
+		パックファイルのバーションを設定します。
 	-------------------
 
 	-------------------
@@ -592,8 +625,14 @@
 #if !defined(BSYS_FILE_ENABLE)
 	#define BSYS_FILE_ENABLE								(0)
 #endif
+#if !defined(BSYS_FILE_DEBUG_ENABLE)
+	#define BSYS_FILE_DEBUG_ENABLE							(0)
+#endif
 #if !defined(BSYS_FILE_PACK_ENABLE)
 	#define BSYS_FILE_PACK_ENABLE							(1)
+#endif
+#if !defined(BSYS_FILE_PACK_VERSION)
+	#define BSYS_FILE_PACK_VERSION							(1)
 #endif
 #if !defined(BSYS_FILE_MEMORYCONTAINER)
 	#define BSYS_FILE_MEMORYCONTAINER						(0x01)
