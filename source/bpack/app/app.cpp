@@ -1,7 +1,7 @@
 ﻿
 
 /**
- * Copyright (c) 2017-2018 blueback
+ * Copyright (c) blueback
  * Released under the MIT License
  * https://github.com/bluebackblue/bpack/blob/master/LICENSE.txt
  * http://bbbproject.sakura.ne.jp/wordpress/mitlicense
