@@ -31,6 +31,7 @@ namespace NApp
 	class App
 	{
 	private:
+
 		/** filename_path
 		*/
 		STLWString filename_path;
