@@ -15,3 +15,5 @@ FOR /F %%C IN (configuration.txt) DO (
 		move .\bin\%%P\%%C\bpack.exe bpack_%%P_%%C.exe >> log.txt
 	)
 )
+
+@PAUSE
